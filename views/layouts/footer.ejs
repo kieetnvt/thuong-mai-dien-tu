@@ -1,0 +1,22 @@
+    <footer class="footer">
+      <div class="container">
+        <p>Designed and built with all the love in the world by <a href="/">Group 6 E-Commercee</a></p>
+        <p>Code licensed under <a href="http://www.apache.org/licenses/LICENSE-2.0" target="_blank">HCMC University Of Technology</a>, documentation under <a href="http://bitbucket.org">Bitbucket.org</a>.</p>
+        <p><a href="/">All Pictures</a> licensed under <a href="/">Group 6 E-Commercee</a>.</p>
+      </div>
+    </footer>
+    <div class="tool-box" style="position: fixed;right: 10px;bottom: 85%;margin-left: -550px;">
+      <p id="time-now" style="position: relative;display: block;"></p>
+
+      <script>
+      var myVar=setInterval(function(){myTimer()},1000);
+      function myTimer()
+      {
+      var d=new Date();
+      var t=d.toLocaleTimeString();
+      document.getElementById("time-now").innerHTML="Time Now:" + t;
+      }
+      </script>
+    </div>
+  </body>
+</html>

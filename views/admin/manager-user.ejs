@@ -1,0 +1,41 @@
+<?- include ../layouts/admin_header.ejs ?>
+<div class="container">
+  <? if(userName  && adminAuth) {?>
+    <table  class="table"  width="100%">
+      <thead>
+        <tr bgcolor="#D6F7FC">
+          <th width="5%" align="center"><font size="2" color="#09c">Index</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">User Name</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Delete User</font></th>
+        </tr>
+      </thead>
+        <? for(var i = 0; i < allUsers.length; i++){ ?>
+      <tr>
+        <td>
+          <span class="line-user"><?= i + 1  ?></span>
+        </td>
+        <td>
+          <span class="line-user"><?= allUsers[i].user_name ?></span>
+        </td>
+        <td>
+          <span class="line-user"><button id="<?= allUsers[i].id ?>" class="btn btn-danger" onclick="deleteUser(id)">Delete</button></span>
+        </td>
+      </tr>
+      <? } ?>
+    </table>
+  <? }  ?>
+</div>
+<script type="text/javascript">
+  function deleteUser(id){
+    $.ajax({
+      type:"post",
+      url:"/admin/xoa-user",
+      data: {
+        userId : id
+      },
+    }).done(function(){
+      alert('xoa xong roi');
+      window.location.reload();
+    });
+  };
+</script>

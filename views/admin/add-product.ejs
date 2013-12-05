@@ -1,0 +1,41 @@
+<?- include ../layouts/admin_header.ejs ?>
+<div class="container">
+  <? if(userName  && adminAuth) {?>
+  <form method="post" action="/admin/post-add-product">
+    <fieldset>
+      <h3><?= title ?></h3>
+      <p>
+        <label>Product Name:</label>
+        <input class="text-input large-input"  type="text" value="" name="name" id="name" /><span style="color:#B8B8B8"></span>
+      </p>
+      <p>
+        <label>Product Price:</label>
+        <input class="text-input large-input"  type="text" value="" name="price" id="price" /><span style="color:#B8B8B8"></span>
+      </p>
+      <p>
+        <label>Product Detail:</label>
+        <textarea name="detail" COLS=10 ROWS=6 ></textarea>
+      </p>
+      <p>
+        <label>Product Image:</label>
+        <input class="text-input large-input"  type="text" value="" name="image" id="image" /><span style="color:#B8B8B8"></span>
+      </p>
+      <p>
+        <label>Category Alias:</label>
+        <input class="text-input large-input"  type="text" value="" name="category_alias" id="category_alias" /><span style="color:#B8B8B8"></span>
+      </p>
+      <p>
+        <label>Time To Buy:</label>
+        <input class="text-input small-input"  type="text" value="" name="time_to_buy" id="time_to_buy" /><span style="color:#B8B8B8"></span>
+      </p>
+      <p>
+        <label>Man Buy:</label>
+        <input class="text-input small-input"  type="text" value="" name="man_buy" id="man_buy" /><span style="color:#B8B8B8"></span>
+      </p>
+       <input class="button" name= "submit" type="submit" value="Submit" />
+    </fieldset>
+  </form>
+  <? } ?>
+</div>
+<!-- End .content-box-content -->
+<!-- End .content-box -->

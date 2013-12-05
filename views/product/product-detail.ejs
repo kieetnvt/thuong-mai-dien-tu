@@ -1,0 +1,153 @@
+<?- include ../layouts/header.ejs ?>
+<script type="text/javascript">
+  var a;
+  var myvar = setInterval(function(){timerBuy()}, 1000);
+  function timerBuy(){
+    var al = parseInt(document.getElementById('product_lenght').textContent);
+    for(var a = 0; a < al ; a++){
+      timerBuyOne(a);
+    };
+  };
+  function timerBuyOne(index){
+    console.log(index);
+    var product_id = document.getElementById('product_id').textContent;
+    var timeNow = new Date();
+    var timeCreated = new Date(document.getElementById('time-create-'+index).textContent);
+    var minus =  timeCreated - timeNow;
+    if (minus/1000 < 0) {
+      console.log('product expire');
+      var flag = document.getElementById('time-buy-'+index);
+      flag.innerHTML = "product expire!";
+      clearInterval(myvar);
+      $.ajax({
+        type:'post',
+        url:'/set-expire',
+        data: {product_id:product_id}
+      }).done(function(){
+        console.log('set product expire true');
+      });
+    }else {
+          document.getElementById('time-buy-'+index).innerHTML = convertMillisecondsToDigitalClock(minus).clock;
+    };
+
+  };
+  function convertMillisecondsToDigitalClock(ms) {
+    hours = Math.floor(ms / 3600000), // 1 Hour = 36000 Milliseconds
+    minuets = Math.floor((ms % 3600000) / 60000), // 1 Minutes = 60000 Milliseconds
+    seconds = Math.floor(((ms % 360000) % 60000) / 1000) // 1 Second = 1000 Milliseconds
+        return {
+        hours : hours,
+        minuets : minuets,
+        seconds : seconds,
+        clock : hours + "h " + minuets + "m " + seconds + "s"
+    };
+  };
+</script>
+<script>
+
+function showIdProduct(id) {
+    $.ajax({
+      type: "post",
+      url: "/test",
+      data: {productId:id},
+      success: function(res){
+        p = "<br/>";
+        name = "<p>"+res.data.name+"</p>";
+        img = "<img src='"+res.data.img+"'>";
+        console.log(name);
+        console.log(img);
+        a = document.getElementById('ex1');
+        a.innerHTML += p;
+        a.innerHTML += name;
+        a.innerHTML += img;
+        a.innerHTML += p;
+      },
+      error: function(req, status, err){
+        console.log('something went wrong', status, err);
+      }
+    }).done(function(){
+      alert("Đã Thêm Vào Giỏ Hàng Của Bạn")
+    });
+};
+
+function addToCart(id) {
+  number = document.getElementById('number-'+id).value;
+  $.ajax({
+    type:"post",
+    url:"/them-vao-gio",
+    data: {
+      productId : id,
+      number : number
+    },
+  }).done(function(res){
+    if (res == true) {
+      alert('Dat Mua Thanh Cong, Chuyen Den Trang Thanh Toan');
+      window.location.href = '/thanh-toan';
+    } else{
+      alert('San Pham Het Han!!!');
+    };
+  });
+};
+
+function buyProductNow(id) {
+  number = document.getElementById('number-'+id).value;
+  $.ajax({
+    type:"post",
+    url:"/mua-ngay",
+    data: {
+      productId : id,
+      number : number
+    },
+  }).done(function(res){
+    if (res == "YES") {
+      alert('Dat Mua Thanh Cong, Chuyen Den Trang Thanh Toan');
+      window.location.href = '/thanh-toan';
+    } else{
+      alert('San Pham Het Han!!!');
+    };
+  });
+};
+</script>
+<style type="text/css">
+  #buy-number{
+    width: 110px !important;
+    white-space: nowrap;
+    float: left;
+    font-family: "OpenSans";
+    font-size: 14px;
+    padding-left: 5px;
+  }
+</style>
+<div class="featurette" style="margin-left:10%;margin-right:10%;">
+  <span id="product_lenght" style="display:none;">1</span>
+  <span id="product_id" style="display:none;"><?= productDetail.id ?></span>
+  <img class="featurette-image pull-left" src="<?= productDetail.img ?>">
+  <h2 class="featurette-heading"><?= productDetail.name ?></h2>
+  <p class="lead">
+    <? if(typeof(userName)!= 'undefined') { ?>
+      <p>Giá Sản Phẩm : <?= productDetail.price ?> VND</p>
+      <span>
+        Số Lượng:
+        <select class="" id='number-<?= productDetail.id ?>'>
+          <? for(var j = 1; j <= 10 ; j++) {?>
+            <option value="<?=j?>"><?=j?></option>
+          <? } ?>
+        </select>
+      </span>
+      <p>
+        <a href="/san-pham/<?= productDetail.id ?>" class="btn btn-primary">Chi Tiết</a>
+        <a  id="<?= productDetail.id ?>" class="btn btn-success" onclick="addToCart(id)">Thêm Giỏ Hàng</a>
+        <a id="<?= productDetail.id ?>" class="btn btn-danger" onclick="buyProductNow(id)">Mua Ngay</a>
+      </p>
+      <p>
+        <div id="product-time" style="display:none;">
+          <em>Created At : </em><span id="time-create-0" class="time-countdown"><?= productDetail.time_to_buy ?></span>
+        </div>
+        <!-- <div id="product_id" style="display:none;"><?= productDetail.id ?></div> -->
+        <em>Người Đã Mua : </em><span><?= productDetail.man_buy ?></span>
+        <em>Thời Gian : </em><span id="time-buy-0"></span>
+      </p>
+      <? } ?>
+  </p>
+</div>
+<?- include ../layouts/footer.ejs ?>

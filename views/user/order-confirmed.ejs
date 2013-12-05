@@ -1,0 +1,21 @@
+<?- include ../layouts/header.ejs ?>
+<div class="container">
+  <div class="row-fluid">
+    <? var sum_price = 0 ?>
+      <? for (var i = 0; i < arrProducts.length; i++) { ?>
+      <div class="span4">
+        <h2 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= arrProducts[i].name ?></h2>
+        <p><img style="width: 300px; height: 200px;" src="<?= arrProducts[i].img ?>"></p>
+        <p>Thành Tiền : <?= arrProducts[i].price ?> x <?= arrNumber[i] ?> = <?= arrProducts[i].price*arrNumber[i] ?> VND</p>
+            <? sum_price = sum_price +  arrProducts[i].price*arrNumber[i] ?></p>
+        <p>Số Lượng : <?= arrNumber[i]?></p>
+      </div>
+      <? } ?>
+  </div>
+    <div class="jumbotron">
+    <h2>Đơn hàng bạn đã mua</h2>
+    <p class="lead">Chúng tôi hỗ trợ thanh toán thông qua PayPal - Credit Card và Ngân Lượng. </p>
+    <h3>Tổng số tiền đã thanh toán : <?= sum_price ?> VND</h3>
+  </div>
+</div>
+<?- include ../layouts/footer.ejs ?>

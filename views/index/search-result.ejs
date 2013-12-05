@@ -1,0 +1,157 @@
+<?- include ../layouts/header.ejs ?>
+<script type="text/javascript">
+  var a;
+  var myvar = setInterval(function(){timerBuy()}, 1000);
+  function timerBuy(){
+    var al = parseInt(document.getElementById('product_lenght').textContent);
+    for(var a = 0; a < al ; a++){
+      timerBuyOne(a);
+    };
+  };
+  function timerBuyOne(index){
+    var product_id = document.getElementById('product-id-'+index).textContent;
+    var timeNow = new Date();
+    var timeCreated = new Date(document.getElementById('time-create-'+index).textContent);
+    var minus =  timeCreated - timeNow;
+
+    if (minus/1000 < 0) {
+      console.log('product expire');
+      var flag = document.getElementById('time-buy-'+index);
+      flag.innerHTML = "product expire!";
+      clearInterval(myvar);
+      $.ajax({
+        type:'post',
+        url:'/set-expire',
+        data: {product_id:product_id}
+      }).done(function(){
+        console.log('set product expire true');
+      });
+    }else {
+          document.getElementById('time-buy-'+index).innerHTML = convertMillisecondsToDigitalClock(minus).clock;
+    };
+  };
+  function convertMillisecondsToDigitalClock(ms) {
+    hours = Math.floor(ms / 3600000), // 1 Hour = 36000 Milliseconds
+    minuets = Math.floor((ms % 3600000) / 60000), // 1 Minutes = 60000 Milliseconds
+    seconds = Math.floor(((ms % 360000) % 60000) / 1000) // 1 Second = 1000 Milliseconds
+        return {
+        hours : hours,
+        minuets : minuets,
+        seconds : seconds,
+        clock : hours + "h " + minuets + "m " + seconds + "s"
+    };
+  };
+</script>
+<script>
+
+function showIdProduct(id) {
+    $.ajax({
+      type: "post",
+      url: "/test",
+      data: {productId:id},
+      success: function(res){
+        p = "<br/>";
+        name = "<p>"+res.data.name+"</p>";
+        img = "<img src='"+res.data.img+"'>";
+        console.log(name);
+        console.log(img);
+        a = document.getElementById('ex1');
+        a.innerHTML += p;
+        a.innerHTML += name;
+        a.innerHTML += img;
+        a.innerHTML += p;
+      },
+      error: function(req, status, err){
+        console.log('something went wrong', status, err);
+      }
+    }).done(function(){
+      alert("Đã Thêm Vào Giỏ Hàng Của Bạn")
+    });
+};
+
+function addToCart(id) {
+  number = document.getElementById('number-'+id).value;
+  $.ajax({
+    type:"post",
+    url:"/them-vao-gio",
+    data: {
+      productId : id,
+      number : parseInt(number)
+    },
+  }).done(function(res){
+    alert(res);
+  });
+};
+
+function buyProductNow(id) {
+  number = document.getElementById('number-'+id).value;
+  $.ajax({
+    type:"post",
+    url:"/mua-ngay",
+    data: {
+      productId : id,
+      number : number
+    },
+  }).done(function(res){
+    if (res == "YES") {
+      alert('Dat Mua Thanh Cong, Chuyen Den Trang Thanh Toan');
+      window.location.href = '/thanh-toan';
+    } else{
+      alert('San Pham Het Han!!!');
+    };
+  });
+};
+</script>
+<style type="text/css">
+  #buy-number{
+    width: 110px !important;
+    white-space: nowrap;
+    float: left;
+    font-family: "OpenSans";
+    font-size: 14px;
+    padding-left: 5px;
+  }
+</style>
+<div class="container">
+  <div class="row-fluid">
+    <span id="product_lenght" style="display:none;"><?= allProducts.length ?></span>
+    <? for (var i = 0; i < allProducts.length; i++) { ?>
+      <div class="span4">
+        <h2><?= allProducts[i].name ?></h2>
+        <p>Giá Sản Phẩm : <?= allProducts[i].price ?></p>
+        <a href="/san-pham/<?= allProducts[i]._id ?>"><img src="<?= allProducts[i].img ?>"></a>
+        <? if(typeof(userName)!= 'undefined') { ?>
+        <p>
+          <span><a class="btn" href="/san-pham/<?= allProducts[i]._id ?>"><button class="btn btn-warning">Xem Chi Tiết »</button></a></span>
+          <span>
+            Số Lượng:
+            <select class="btn btn-info" id='number-<?= allProducts[i]._id ?>'>
+              <? for(var j = 1; j <= 10 ; j++) {?>
+                <option value="<?=j?>"><?=j?></option>
+              <? } ?>
+            </select>
+          </span>
+          <span><a id="<?= allProducts[i]._id ?>" class="btn" onclick="addToCart(id)"><button class="btn btn-info">Thêm vào Giỏ Hàng »</button></a></span> hoặc
+          <span><a id="<?= allProducts[i]._id ?>" class="btn" onclick="buyProductNow(id)"><button class="btn btn-danger">Mua Ngay »</button></a></span>
+        </p>
+        <? } ?>
+        <div class="meta">
+          <div id="buy-number" style="margin-right:5%;">
+            <em>Số Người Đã Mua : </em><span><?= allProducts[i].man_buy ?></span>
+          </div>
+          <div id="product-time" style="display:none;">
+            <em>Created At : </em><span id="time-create-<?= i ?>" class="time-countdown"><?= allProducts[i].time_to_buy ?></span>
+          </div>
+          <div id="time-to-buy">
+            <em>Thời Gian Còn Lại : </em><span id="time-buy-<?= i ?>"></span>
+          </div>
+          <div id="product-id-<?= i ?>" style="display:none;"><?= allProducts[i]._id ?></div>
+        </div>
+      </div><!--/span-->
+    <? } ?>
+    <div id="ex1" style="display:none;width:50%;height:100%;background-color:white;">
+      <p>Thanks for clicking.  That felt good.  <a href="#" rel="modal:close">Close</a> or press ESC</p>
+    </div>
+  </div>
+</div>
+<?- include ../layouts/footer.ejs ?>

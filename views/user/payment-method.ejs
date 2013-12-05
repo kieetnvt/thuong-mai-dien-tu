@@ -1,0 +1,36 @@
+<?- include ../layouts/header.ejs ?>
+<script type="text/javascript">
+    function deleteOrderFunc(id) {
+    $.ajax({
+      type: "post",
+      url: "/xoa-order",
+      data:{
+        orderId : id,
+      }
+    }).done(function(){
+      alert("delete done");
+    });
+  };
+</script>
+<div class="container">
+  <div class="jumbotron">
+    <h2>Thanh toán đơn đặt hàng của bạn</h2>
+    <p class="lead">Chúng tôi hỗ trợ thanh toán thông qua PayPal - Credit Card và Ngân Lượng</p>
+  </div>
+  <div class="row-fluid">
+    <? var sum_price = 0 ?>
+      <? for (var i = 0; i < arrProducts.length; i++) { ?>
+      <div class="span4">
+        <h2 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= arrProducts[i].name ?></h2>
+        <p><img style="width: 300px; height: 200px;" src="<?= arrProducts[i].img ?>"></p>
+        <p>Thành Tiền : <?= arrProducts[i].price ?> x <?= arrNumber[i] ?> = <?= arrProducts[i].price*arrNumber[i] ?></p>
+            <? sum_price = sum_price +  arrProducts[i].price*arrNumber[i] ?></p>
+        <p>Số Lượng : <?= arrNumber[i]?></p>
+        <p>
+          <a id="<?= orders[i].id ?>" href="" class="btn btn-danger" onclick="deleteOrderFunc(id)">Xóa đơn hàng này</a>
+        </p>
+      </div>
+      <? } ?>
+  </div>
+</div>
+<?- include ../layouts/footer.ejs ?>

@@ -1,0 +1,69 @@
+<?- include ../layouts/admin_header.ejs ?>
+<div class="container">
+  <? if(userName  && adminAuth) {?>
+    <table  class="table"  width="100%" style="border:1px solid;">
+      <thead>
+        <tr bgcolor="#D6F7FC">
+          <th width="5%" align="center"><font size="2" color="#09c">Index</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Product Name</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Product Price</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Product Image</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Category Alias</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Expire</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Time To Buy</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Man Buy</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Edit</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Delete</font></th>
+        </tr>
+      </thead>
+        <? for(var i = 0; i < allProducts.length; i++){ ?>
+      <tr>
+        <td align="center">
+          <div><span class="line-user"><?= i + 1  ?></span></div>
+        </td>
+        <td align="center">
+          <div><span class="line-user"><?= allProducts[i].name ?></span></div>
+        </td>
+        <td>
+          <div><span class="line-user"><?= allProducts[i].price ?></span></div>
+        </td>
+        <td>
+          <span class="line-user"><img src="<?= allProducts[i].img ?>"></span>
+        </td>
+        <td>
+          <span class="line-user"><?= allProducts[i].category_alias ?></span>
+        </td>
+        <td>
+          <span class="line-user"><?= allProducts[i].expire ?></span>
+        </td>
+        <td>
+          <span class="line-user"><?= allProducts[i].time_to_buy ?></span>
+        </td>
+        <td>
+          <span class="line-user"><?= allProducts[i].man_buy ?></span>
+        </td>
+        <td>
+          <span class="line-user"><a href="/admin/edit-san-pham/<?=allProducts[i].id?>"><button class="btn btn-info">Edit</button></a></span>
+        </td>
+        <td>
+          <span class="line-user"><button id="<?= allProducts[i].id ?>" class="btn btn-danger" onclick="deleteProduct(id)">Delete</button></span>
+        </td>
+      </tr>
+      <? } ?>
+    </table>
+  <? }  ?>
+</div>
+<script type="text/javascript">
+  function deleteProduct(id){
+    $.ajax({
+      type:"post",
+      url:"/admin/xoa-san-pham",
+      data: {
+        productId : id
+      },
+    }).done(function(){
+      alert('xoa xong roi');
+      window.location.reload();
+    });
+  };
+</script>
