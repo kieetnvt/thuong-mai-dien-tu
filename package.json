@@ -8,6 +8,10 @@
   "dependencies": {
     "express": "3.4.4",
     "ejs": "*",
-    "stylus": "*"
+    "stylus": "*",
+    "underscore": "*",
+    "async": "*",
+    "mongoose": "~3.8.0",
+    "solr-client": "*"
   }
 }
