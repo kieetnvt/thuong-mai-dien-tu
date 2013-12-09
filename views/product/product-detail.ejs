@@ -77,15 +77,11 @@ function addToCart(id) {
     url:"/them-vao-gio",
     data: {
       productId : id,
-      number : number
+      number : parseInt(number)
     },
   }).done(function(res){
-    if (res == true) {
-      alert('Dat Mua Thanh Cong, Chuyen Den Trang Thanh Toan');
-      window.location.href = '/thanh-toan';
-    } else{
-      alert('San Pham Het Han!!!');
-    };
+    alert(res);
+    window.location.reload();
   });
 };
 
@@ -109,23 +105,28 @@ function buyProductNow(id) {
 };
 </script>
 <style type="text/css">
-  #buy-number{
-    width: 110px !important;
-    white-space: nowrap;
+  #buy_number {
+    border: 1px solid #c6e59f;
+    color: #70bd0f;
+    padding: 8px 12px 6px 42px;
     float: left;
-    font-family: "OpenSans";
-    font-size: 14px;
-    padding-left: 5px;
-  }
+    border-radius: 6px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    line-height: 14px;
+    font-family: "OpenSans-Bold";
+    font-size: 20px;
+  };
+
 </style>
-<div class="featurette" style="margin-left:10%;margin-right:10%;">
-  <span id="product_lenght" style="display:none;">1</span>
-  <span id="product_id" style="display:none;"><?= productDetail.id ?></span>
-  <img class="featurette-image pull-left" src="<?= productDetail.img ?>">
-  <h2 class="featurette-heading"><?= productDetail.name ?></h2>
+<span id="product_lenght" style="display:none;">1</span>
+<span id="product_id" style="display:none;"><?= productDetail.id ?></span>
+<div class="featurette" style="margin-left:10%;margin-right:10%;padding-top:50px;margin-top:10%;">
+  <img class="featurette-image pull-left" style="max-width:500px;height:450px;padding-top:120px;" src="<?= productDetail.img ?>">
   <p class="lead">
-    <? if(typeof(userName)!= 'undefined') { ?>
-      <p>Giá Sản Phẩm : <?= productDetail.price ?> VND</p>
+      <h2><?= productDetail.name ?></h2>
+      <p style="font-size:18px;line-height:30px;"><?= productDetail.detail_summary ?></p>
+      <p style="font-size:28px;color:red;line-height:30px;">Giá Sản Phẩm : <?= productDetail.price ?> VND</p>
       <span>
         Số Lượng:
         <select class="" id='number-<?= productDetail.id ?>'>
@@ -134,20 +135,30 @@ function buyProductNow(id) {
           <? } ?>
         </select>
       </span>
-      <p>
-        <a href="/san-pham/<?= productDetail.id ?>" class="btn btn-primary">Chi Tiết</a>
+    <? if(typeof(userName)!= 'undefined') { ?>
+      <p style="margin:3%;">
         <a  id="<?= productDetail.id ?>" class="btn btn-success" onclick="addToCart(id)">Thêm Giỏ Hàng</a>
         <a id="<?= productDetail.id ?>" class="btn btn-danger" onclick="buyProductNow(id)">Mua Ngay</a>
       </p>
+    <? } ?>
       <p>
         <div id="product-time" style="display:none;">
           <em>Created At : </em><span id="time-create-0" class="time-countdown"><?= productDetail.time_to_buy ?></span>
         </div>
-        <!-- <div id="product_id" style="display:none;"><?= productDetail.id ?></div> -->
-        <em>Người Đã Mua : </em><span><?= productDetail.man_buy ?></span>
-        <em>Thời Gian : </em><span id="time-buy-0"></span>
+        <div id="product_id" style="display:none;"><?= productDetail.id ?></div>
+        <div id="buy_number"><em>Đã Mua : </em><span><?= productDetail.man_buy ?></span></div>
+        <div id="buy_number"><em>Thời Gian : </em><span id="time-buy-0"></span></div>
       </p>
-      <? } ?>
+      <br>
+      <br>
+      <div style="margin-top:15%;" class="well well-large">
+          <h2 class="featurette-heading"><?= productDetail.name ?></h2>
+          <legend><h3>Điểm nổi bật</h3></legend>
+          <p><?= productDetail.detail_1 ?></p>
+          <br>
+          <legend><h3>Điều kiện</h3></legend>
+          <p><?= productDetail.detail_2 ?></p>
+      </div>
   </p>
 </div>
 <?- include ../layouts/footer.ejs ?>

@@ -55,6 +55,9 @@ exports.addProduct = function(req, res){
       price: req.body.price,
       detail: req.body.detail,
       img: req.body.image,
+      detail_1: req.body.detail_1,
+      detail_2: req.body.detail_2,
+      detail_summary: req.body.detail_summary,
       category_alias: req.body.category_alias,
       time_to_buy: req.body.time_to_buy,
       man_buy: req.body.man_buy
@@ -74,6 +77,9 @@ exports.postEditProduct = function(req, res){
       result.price = req.body.price;
       result.detail = req.body.detail;
       result.img = req.body.image;
+      result.detail_1 = req.body.detail_1;
+      result.detail_2 = req.body.detail_2;
+      result.detail_summary = req.body.detail_summary;
       result.category_alias = req.body.category_alias;
       result.time_to_buy = req.body.time_to_buy;
       result.man_buy = req.body.man_buy;
@@ -142,7 +148,14 @@ exports.managerOrder = function(req, res){
             });
           };
         } else{
-          res.send('rong');
+                res.render('admin/manager-order',{
+                  title:'Trang Admin manager-order',
+                  allOrders:allOrders,
+                  arrProducts:arrProducts,
+                  arrNumber:arrNumber,
+                  userName:req.session.userName,
+                  adminAuth:req.session.adminAuth
+                });
         };
       } else{
         res.redirect('/dang-nhap');

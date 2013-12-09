@@ -1,41 +1,89 @@
 <?- include ../layouts/admin_header.ejs ?>
 <div class="container">
   <? if(userName  && adminAuth) {?>
-  <form method="post" action="/admin/post-edit-product/<?= result.id ?>">
+  <form class="control-group" method="post" action="/admin/post-edit-product/<?= result.id ?>">
     <fieldset>
-      <h3><?= title ?></h3>
-      <p>
-        <label>Product Name:</label>
-        <input class="text-input large-input"  type="text" value="<?= result.name ?>" name="name" id="name" /><span style="color:#B8B8B8"></span>
-      </p>
-      <p>
-        <label>Product Price:</label>
-        <input class="text-input large-input"  type="text" value="<?= result.price ?>" name="price" id="price" /><span style="color:#B8B8B8"></span>
-      </p>
-      <p>
-        <label>Product Detail:</label>
-        <textarea name="detail" COLS=10 ROWS=6 ><?= result.detail  ?></textarea>
-      </p>
-      <p>
-        <label>Product Image:</label>
-        <input class="text-input large-input"  type="text" value="<?= result.img ?>" name="image" id="image" /><span style="color:#B8B8B8"></span>
-      </p>
-      <p>
-        <label>Category Alias:</label>
-        <input class="text-input large-input"  type="text" value="<?= result.category_alias ?>" name="category_alias" id="category_alias" /><span style="color:#B8B8B8"></span>
-      </p>
-      <p>
-        <label>Time To Buy:</label>
-        <input class="text-input small-input"  type="text" value="<?= result.time_to_buy ?>" name="time_to_buy" id="time_to_buy" /><span style="color:#B8B8B8"></span>
-      </p>
-      <p>
-        <label>Man Buy:</label>
-        <input class="text-input small-input"  type="text" value="<?= result.man_buy ?>" name="man_buy" id="man_buy" /><span style="color:#B8B8B8"></span>
-      </p>
-       <input class="button" name= "submit" type="submit" value="Submit" />
+      <legend><h3>Form Thêm Sản Phẩm</h3></legend>
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="name">Product Name</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" style="width:50%" id="name" name="name" value="<?=result.name?>" required= "required">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="price">Product Price</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" style="width:50%" id="price" name="price" value="<?=result.price?>" required= "required"> VND
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="detail_summary">Product Detail Summary</label>
+        <div class="controls">
+          <textarea class="input-xlarge" style="width:50%" id="detail_summary" rows="3" name="detail_summary">
+            <?= result.detail_summary ?>
+          </textarea>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="detail_1">Product Detail Features</label>
+        <div class="controls">
+          <textarea class="input-xlarge" style="width:50%" id="detail_1" rows="5" name="detail_1">
+            <?= result.detail_1 ?>
+          </textarea>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="detail_2">Product Detail Conditions</label>
+        <div class="controls">
+          <textarea class="input-xlarge" style="width:50%" id="detail_2" rows="5" name="detail_2">
+            <?= result.detail_2 ?>
+          </textarea>
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="image">Product Image Url</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" style="width:50%" id="image" name="image" value="<?=result.img?>" required= "required">
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="category_alias">Category Alias</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" style="width:50%" id="category_alias" name="category_alias" value="<?=result.category_alias?>" required= "required"> (ex: cong-nghe-dien-tu)
+        </div>
+      </div>
+<!--       <div class="control-group">
+        <label class="control-label" for="select01">Select list</label>
+        <div class="controls">
+          <select id="select01">
+            <option>something</option>
+            <option>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+          </select>
+        </div>
+      </div> -->
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="time_to_buy">Time Buy</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" style="width:50%" id="time_to_buy" name="time_to_buy" value="<?=result.time_to_buy?>" required= "required"> (ex: Tue Dec 10 2013 01:31:10 GMT+0700 (SE Asia Standard Time))
+        </div>
+      </div>
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="man_buy">Man Buy</label>
+        <div class="controls">
+          <input type="text" class="input-xlarge" style="width:50%" id="man_buy" name="man_buy" value="<?=result.man_buy?>" required= "required"> (ex: 30)
+        </div>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" name="submit">Save </button>
+        <button class="btn">Cancel</button>
+      </div>
     </fieldset>
   </form>
   <? } ?>
 </div>
 <!-- End .content-box-content -->
 <!-- End .content-box -->
+<?- include ../layouts/footer.ejs ?>

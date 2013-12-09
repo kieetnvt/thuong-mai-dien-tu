@@ -9,29 +9,28 @@
     <title><?= title ?></title>
   </head>
   <body>
-  <div class="navbar navbar-inverse">
+  <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
       <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="brand" href="/"><span class="icon-cart"></span>Nhóm Mua</a>
       <div class="nav-collapse collapse">
         <ul class="nav">
             <? if(typeof(userName) != 'undefined' && adminAuth == true) {?>
+              <li><a href="/admin/them-san-pham"><span class="icon-calculate"></span>Thêm Sản Phẩm</a></li>
               <li><a href="/admin/quan-ly-san-pham"><span class="icon-calculate"></span>Quản Lý Sản Phẩm</a></li>
               <li><a href="/admin/quan-ly-don-hang"><span class="icon-calculate"></span>Quản Lý Đơn Hàng</a></li>
               <li><a href="/admin/quan-ly-nguoi-dung"><span class="icon-calculate"></span>Quản Lý User</a></li>
-              <li><a href="/admin/them-san-pham"><span class="icon-calculate"></span>Thêm Sản Phẩm</a></li>
             <? } ?>
         </ul>
         <form class="navbar-search pull-left" action="">
-          <input type="text" class="search-query span2" placeholder="Search" style="margin-top:5px;width:150%;">
+          <input type="text" class="search-query span2" placeholder="Search" style="margin-top: 7%;;width:150%;">
         </form>
         <ul class="nav navbar-nav navbar-right" style="float:right;">
             <? if(typeof(userName) != 'undefined' && adminAuth == true) {?>
-              <li><a href="/admin/quan-ly-san-pham"><span class="icon-accessibility"></span> Trang <?= userName ?></a></li>
+              <li><a href="/"><span class="icon-accessibility"></span> Trang <?= userName ?></a></li>
               <li><a href="/dang-xuat"><span class="icon-exit"></span>Đăng Xuất</a></li>
             <? } else { ?>
               <li><a href="/dang-nhap"><span class="icon-facebook"></span>Đăng Nhập</a></li>
@@ -40,3 +39,4 @@
       </div><!--/.nav-collapse -->
     </div><!-- /.navbar-inner -->
   </div>
+  <p style="margin-bottom:10%;"></p>

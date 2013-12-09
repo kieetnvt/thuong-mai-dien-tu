@@ -7,9 +7,11 @@
 // var all_product = product.get_product;
 var Product = app.model('product');
 var Solr = require('solr-client');
-
-var client = Solr.createClient("localhost",8080,"core1","/apache-solr-3.6.2/");
-
+// for ubuntu
+// var client = Solr.createClient("localhost",8080,"core1","/apache-solr-3.6.2/");
+// for window test
+var client = Solr.createClient("localhost",8080,"collection1","/solr/#/~cores");
+console.log(client)
 client.autoCommit = true;
 
 exports.index = function(req, res){
@@ -17,20 +19,29 @@ exports.index = function(req, res){
 };
 
 exports.indexData = function(req, res){
-  var docs = [];
-  Product.find({}, function(err, data){
-    for(var i = 0; i < data.length ; i++){
-      docs.push(data[i]);
+  // var docs = [];
+  // Product.find({}, function(err, data){
+  //   for(var i = 0; i < data.length ; i++){
+  //     docs.push(data[i]);
+  //   };
+  //   client.add(docs, function(err,obj){
+  //     if(err){
+  //     console.log(err);
+  //     }else{
+  //     console.log(obj);
+  //     };
+  //   });
+  // });
+  // res.send("index Data is Done!");
+  var mixs = [
+                {phone:"016855xxxx"},
+                {phone:"01686xxxxx"},
+            ];
+  client.add(mixs, function(err, obj){
+    if (err) {throw err;} else{
+      res.send("aaa");
     };
-    client.add(docs, function(err,obj){
-      if(err){
-      console.log(err);
-      }else{
-      console.log(obj);
-      };
-    });
   });
-  res.send("index Data is Done!");
 };
 
 exports.search = function(req, res){

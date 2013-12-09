@@ -1,8 +1,8 @@
 <?- include ../layouts/header.ejs ?>
 <form class="form-signin" action="/dang-nhap" method="post">
   <h2 class="form-signin-heading">Please sign in</h2>
-  <input type="text" class="input-block-level" placeholder="User Name" name="user-name">
-  <input type="password" class="input-block-level" placeholder="Password" name="user-password">
+  <input type="text" class="input-block-level" placeholder="User Name" name="user-name" required= "required">
+  <input type="password" class="input-block-level" placeholder="Password" name="user-password" required= "required">
   <button class="btn btn-large btn-primary" type="submit" name="submit">Sign in</button>
 </form>
 <?- include ../layouts/footer.ejs ?>

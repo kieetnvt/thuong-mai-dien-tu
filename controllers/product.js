@@ -197,3 +197,4 @@ exports.addProducts = function(req, res){
   newProduct.save();
   res.redirect('/');
 };
+
