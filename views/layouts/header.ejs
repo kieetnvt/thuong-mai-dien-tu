@@ -28,24 +28,23 @@
         </form>
         <ul class="nav navbar-nav navbar-right" style="float:right;margin-right:3%;">
           <? if(typeof(userName) != 'undefined') {?>
-            <li>
-                <? if(typeof(orders) != 'undefined') {?>
-                <a href="/dat-hang"><span class="icon-calculate"></span>
-                    <?= orders.length ?> Order
-                </a>
-                <? }  else { ?>
-                <a href="/dat-hang"><span class="icon-calculate"></span>
-                    Giỏ Hàng
-                </a>
-                <? } ?>
-            </li>
-            <li><a href="/da-mua"><span class="icon-calculate"></span>Đã Mua</a></li>
-            <!-- <li><a href="/thanh-toan"><span class="icon-calculate"></span>Thanh Toán</a></li> -->
-            <? if(typeof(adminAuth) != 'undefined' && adminAuth == true) { ?>
-              <li><a href="/admin/quan-ly-san-pham"><span class="icon-accessibility"></span>Trang <?= userName ?></a></li>
-            <? } else { ?>
-              <li><a href="/"><span class="icon-accessibility"></span><?= userName ?></a></li>
-            <? } ?>
+                <li>
+                    <? if(typeof(orders) != 'undefined') {?>
+                    <a href="/dat-hang"><span class="icon-calculate"></span>
+                        <?= orders.length ?> Order
+                    </a>
+                    <? }  else { ?>
+                    <a href="/dat-hang"><span class="icon-calculate"></span>
+                        Giỏ Hàng
+                    </a>
+                    <? } ?>
+                </li>
+                <li><a href="/da-mua"><span class="icon-calculate"></span>Đã Mua</a></li>
+              <? if(typeof(adminAuth) != 'undefined' && adminAuth == true) { ?>
+                  <li><a href="/admin/quan-ly-san-pham"><span class="icon-accessibility"></span>Trang <?= userName ?></a></li>
+              <? } else { ?>
+                  <li><a href="/"><span class="icon-accessibility"></span><?= userName ?></a></li>
+              <? } ?>
             <li><a href="/dang-xuat"><span class="icon-exit"></span>Đăng Xuất</a></li>
 		      <? } else { ?>
 		            <li><a href="/dang-ky"><span class="icon-smiley"></span>Đăng Ký</a></li>
