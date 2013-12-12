@@ -51,6 +51,9 @@ with(Routes) {
   post('/admin/xoa-san-pham', 'admin#postDeleteProduct');
   post('/admin/xoa-order','admin#deleteOrder');
   post('/admin/xoa-user','admin#deleteUser');
+  // Index
+  get('/home/aboutus','index#aboutus');
+  get('/home/privacy','index#privacy');
 }
 
 exports = module.exports = Routes;

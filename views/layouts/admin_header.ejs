@@ -2,41 +2,45 @@
 <html>
   <head>
     <script src="/javascripts/jquery-1.7.1.min.js"></script>
+    <script src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap-responsive.css' />
     <link rel='stylesheet' href='/stylesheets/base.css' />
+    <link rel='stylesheet' href='/stylesheets/jquery-ui.css' />
     <title><?= title ?></title>
   </head>
   <body>
   <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-            <? if(typeof(userName) != 'undefined' && adminAuth == true) {?>
-              <li><a href="/admin/them-san-pham"><span class="icon-calculate"></span>Thêm Sản Phẩm</a></li>
-              <li><a href="/admin/quan-ly-san-pham"><span class="icon-calculate"></span>Quản Lý Sản Phẩm</a></li>
-              <li><a href="/admin/quan-ly-don-hang"><span class="icon-calculate"></span>Quản Lý Đơn Hàng</a></li>
-              <li><a href="/admin/quan-ly-nguoi-dung"><span class="icon-calculate"></span>Quản Lý User</a></li>
-            <? } ?>
-        </ul>
-        <form class="navbar-search pull-left" action="">
-          <input type="text" class="search-query span2" placeholder="Search" style="margin-top: 7%;;width:150%;">
-        </form>
-        <ul class="nav navbar-nav navbar-right" style="float:right;">
-            <? if(typeof(userName) != 'undefined' && adminAuth == true) {?>
-              <li><a href="/"><span class="icon-accessibility"></span> Trang <?= userName ?></a></li>
-              <li><a href="/dang-xuat"><span class="icon-exit"></span>Đăng Xuất</a></li>
-            <? } else { ?>
-              <li><a href="/dang-nhap"><span class="icon-facebook"></span>Đăng Nhập</a></li>
-            <? } ?>
-        </ul>
-      </div><!--/.nav-collapse -->
+      <div class="container">
+        <button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="nav-collapse collapse" style="height:auto;">
+          <ul class="nav">
+              <? if(typeof(userName) != 'undefined' && adminAuth == true) {?>
+                <li><a href="/admin/them-san-pham"></span>Thêm Sản Phẩm</a></li>
+                <li><a href="/admin/quan-ly-san-pham"></span>Quản Lý Sản Phẩm</a></li>
+                <li><a href="/admin/quan-ly-don-hang"></span>Quản Lý Đơn Hàng</a></li>
+                <li><a href="/admin/quan-ly-nguoi-dung"></span>Quản Lý User</a></li>
+              <? } ?>
+          </ul>
+          <form class="navbar-search pull-left" action="">
+            <input type="text" class="search-query span2" placeholder="Search">
+          </form>
+          <ul class="nav navbar-nav navbar-right" style="float:right;">
+              <? if(typeof(userName) != 'undefined' && adminAuth == true) {?>
+                <li><a href="/"></span> Trang <?= userName ?></a></li>
+                <li><a href="/dang-xuat">Đăng Xuất</a></li>
+              <? } else { ?>
+                <li><a href="/dang-nhap">Đăng Nhập</a></li>
+              <? } ?>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
     </div><!-- /.navbar-inner -->
   </div>
-  <p style="margin-bottom:10%;"></p>
+  <p style="margin-bottom:5%;"></p>

@@ -40,28 +40,33 @@
           <input type="text" class="input-xlarge" style="width:50%" id="image" name="image" value="" required= "required">
         </div>
       </div>
-      <div class="control-group">
+<!--       <div class="control-group">
         <label class="control-label" style="font-size:20px;" for="category_alias">Category Alias</label>
         <div class="controls">
           <input type="text" class="input-xlarge" style="width:50%" id="category_alias" name="category_alias" value="" required= "required"> (ex: cong-nghe-dien-tu)
         </div>
+      </div> -->
+      <div class="control-group">
+        <label class="control-label" style="font-size:20px;" for="category_alias">Category</label>
+        <div class="controls">
+          <select id="category_alias" name="category_alias">
+            <option value="">Select Category</option>
+            <option value="cong-nghe-dien-tu">Công Nghệ Điện Tử</option>
+            <option value="du-lich">Du Lịch</option>
+            <option value="sach-truyen">Sách - Truyện</option>
+          </select>
+        </div>
       </div>
 <!--       <div class="control-group">
-        <label class="control-label" for="select01">Select list</label>
+        <label class="control-label" style="font-size:20px;" for="time_to_buy">Time Buy</label>
         <div class="controls">
-          <select id="select01">
-            <option>something</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
+          <input type="text" class="input-xlarge" style="width:50%" id="time_to_buy" name="time_to_buy" value="" required= "required"> (ex: Tue Dec 10 2013 01:31:10 GMT+0700 (SE Asia Standard Time))
         </div>
       </div> -->
       <div class="control-group">
         <label class="control-label" style="font-size:20px;" for="time_to_buy">Time Buy</label>
         <div class="controls">
-          <input type="text" class="input-xlarge" style="width:50%" id="time_to_buy" name="time_to_buy" value="" required= "required"> (ex: Tue Dec 10 2013 01:31:10 GMT+0700 (SE Asia Standard Time))
+          <input type="text" id="datepicker" size="30" value="" name="time_to_buy" >
         </div>
       </div>
       <div class="control-group">
@@ -78,6 +83,11 @@
   </form>
   <? } ?>
 </div>
+<script>
+  $(function() {
+    $( "#datepicker" ).datepicker();
+  });
+</script>
 <!-- End .content-box-content -->
 <!-- End .content-box -->
 <?- include ../layouts/footer.ejs ?>

@@ -13,30 +13,39 @@
   };
 </script>
 <div class="container">
-  <div class="jumbotron">
+<!--   <div class="jumbotron">
     <h2>Thanh toán đơn đặt hàng của bạn</h2>
-    <p class="lead">Chúng tôi hỗ trợ thanh toán thông qua PayPal - Credit Card và Ngân Lượng</p>
+    <p class="lead">Chúng tôi hỗ trợ thanh toán trực tuyến thông qua PayPal - Chuyển Khoản - Thanh toán trực tiếp.</p>
+  </div> -->
+  <div style="margin:10%;">
+    <div class="row-fluid">
+      <? var sum_price = 0 ?>
+        <? for (var i = 0; i < arrProducts.length; i++) { ?>
+        <div class="span4">
+          <h2 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= arrProducts[i].name ?></h2>
+          <p><img style="width: 300px; height: 200px;" src="<?= arrProducts[i].img ?>"></p>
+          <p>Thành Tiền : <?= arrProducts[i].price ?> x <?= arrNumber[i] ?> = <?= arrProducts[i].price*arrNumber[i] ?></p>
+              <? sum_price = sum_price +  arrProducts[i].price*arrNumber[i] ?></p>
+          <p>Số Lượng : <?= arrNumber[i]?></p>
+          <p>
+            <a id="<?= orders[i].id ?>" href="" class="btn btn-danger" onclick="deleteOrderFunc(id)">Xóa đơn hàng này</a>
+          </p>
+        </div>
+        <? } ?>
+    </div>
   </div>
-  <div class="row-fluid">
-    <? var sum_price = 0 ?>
-      <? for (var i = 0; i < arrProducts.length; i++) { ?>
-      <div class="span4">
-        <h2 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= arrProducts[i].name ?></h2>
-        <p><img style="width: 300px; height: 200px;" src="<?= arrProducts[i].img ?>"></p>
-        <p>Thành Tiền : <?= arrProducts[i].price ?> x <?= arrNumber[i] ?> = <?= arrProducts[i].price*arrNumber[i] ?></p>
-            <? sum_price = sum_price +  arrProducts[i].price*arrNumber[i] ?></p>
-        <p>Số Lượng : <?= arrNumber[i]?></p>
-        <p>
-          <a id="<?= orders[i].id ?>" href="" class="btn btn-danger" onclick="deleteOrderFunc(id)">Xóa đơn hàng này</a>
-        </p>
-      </div>
-      <? } ?>
-  </div>
-<form action="/confirm-payment-order" method="post">
-  Please enter Your Username and Password to confirm
-  <input type="text" name="userName">
-  <input type="password" name="userPassword">
-  <button class="btn btn-danger" type="submit" name="submit">Confirm</button></a>
-</form>
+  <form class="form-signin" action="/confirm-payment-order" method="post">
+    <h2 class="form-signin-heading">Xác Nhận Đơn Hàng Của Bạn</h2>
+    <input type="text" class="input-block-level" placeholder="User Name" name="userName" required= "required">
+    <input type="password" class="input-block-level" placeholder="Password" name="userPassword" required= "required">
+    <em>Chọn Phương Thức</em>
+    <select name="paymentMethod" id='paymentMethodID'>
+      <option value="1" id="bank">Paypal</option>
+      <option value="2" id="bank">Ngân Hàng</option>
+      <option value="3" id="direct">Trực Tiếp</option>
+    </select>
+    <input id="account_numer" type="text" class="input-block-level" placeholder="Account Number" name="userAccountNumber">
+    <button class="btn btn-large btn-primary" type="submit" name="submit">Xác Nhận</button>
+  </form>
 </div>
 <?- include ../layouts/footer.ejs ?>

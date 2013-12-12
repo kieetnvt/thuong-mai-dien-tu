@@ -102,6 +102,33 @@ function buyProductNow(id) {
     };
   });
 };
+function priceProduct() {
+  $.ajax({
+    type:"get",
+    url:"/san-pham",
+    data:{sort:"price"},
+  }).done(function(){
+    window.location.reload();
+  });
+};
+function hotProduct() {
+  $.ajax({
+    type:"get",
+    url:"/san-pham",
+    data:{sort:"hot"},
+  }).done(function(){
+    window.location.reload();
+  });
+};
+function newProduct() {
+  $.ajax({
+    type:"get",
+    url:"/san-pham",
+    data:{sort:"new"},
+  }).done(function(){
+    window.location.reload();
+  });
+};
 </script>
 <style type="text/css">
   #buy-number{
@@ -113,6 +140,8 @@ function buyProductNow(id) {
     padding-left: 5px;
   }
 </style>
+
+
 <div class="row-fluid">
   <ul class="thumbnails" style="margin-left:10%;width:100%;">
     <span id="product_lenght" style="display:none;"><?= allProducts.length ?></span>
@@ -124,19 +153,19 @@ function buyProductNow(id) {
           <h3 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= allProducts[i].name ?></h3>
           <p>Giá Sản Phẩm : <?= allProducts[i].price ?> VND</p>
           <? if(typeof(userName)!= 'undefined') { ?>
-          <span>
-            Số Lượng:
-            <select class="" id='number-<?= allProducts[i].id ?>'>
-              <? for(var j = 1; j <= 10 ; j++) {?>
-                <option value="<?=j?>"><?=j?></option>
-              <? } ?>
-            </select>
-          </span>
-          <p>
-            <!-- <a href="/san-pham/<?= allProducts[i].id ?>" class="btn btn-primary">Chi Tiết</a> -->
-            <a  id="<?= allProducts[i].id ?>" class="btn btn-success" onclick="addToCart(id)">Thêm Giỏ Hàng</a>
-            <a id="<?= allProducts[i].id ?>" class="btn btn-danger" onclick="buyProductNow(id)">Mua Ngay</a>
-          </p>
+            <span>
+              Số Lượng:
+              <select class="" id='number-<?= allProducts[i].id ?>'>
+                <? for(var j = 1; j <= 10 ; j++) {?>
+                  <option value="<?=j?>"><?=j?></option>
+                <? } ?>
+              </select>
+            </span>
+            <p>
+              <a  id="<?= allProducts[i].id ?>" style="width:40%;" class="btn btn-success" onclick="addToCart(id)">Thêm Giỏ Hàng</a>
+              <a id="<?= allProducts[i].id ?>" style="width:40%;" class="btn btn-danger" onclick="buyProductNow(id)">Mua Ngay</a>
+            </p>
+          <? } ?>
           <p>
             <div id="product-time" style="display:none;">
               <em>Created At : </em><span id="time-create-<?= i ?>" class="time-countdown"><?= allProducts[i].time_to_buy ?></span>
@@ -145,11 +174,19 @@ function buyProductNow(id) {
             <em>Người Đã Mua : </em><span><?= allProducts[i].man_buy ?></span>
             <em>Thời Gian : </em><span id="time-buy-<?= i ?>"></span>
           </p>
-          <? } ?>
         </div>
       </div>
     </li>
     <? } ?>
   </ul>
 </div>
+<!-- <div id="toolbox" style="position: fixed;right: 10px;bottom: 45%;margin-left: -550px;">
+    <em>Xắp Sếp Theo</em>
+    <br>
+    <button class="btn btn-info" style="margin-bottom:5%;" onclick="priceProduct();">Giá Thấp</button>
+    <br>
+    <button class="btn btn-info" style="margin-bottom:5%;" onclick="newProduct();">Mới Nhất</button>
+    <br>
+    <button class="btn btn-info" style="margin-bottom:5%;" onclick="hotProduct();">Hot Nhất</button>
+</div> -->
 <?- include ../layouts/footer.ejs ?>

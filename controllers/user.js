@@ -1,7 +1,7 @@
 
-/*
- * GET users.
- */
+/**********************************************************************************
+ ***************************** Users Controller ***********************************
+ **********************************************************************************/
 
 
 var User = app.model('user');
@@ -85,9 +85,9 @@ exports.signUp = function(req, res){
   };
 }
 
-/*
- * Work With Cart Order
- */
+/**********************************************************************************
+ ***************************** Work With Cart Order *******************************
+ **********************************************************************************/
 
 // show list order in your cart
 exports.cartOrder = function(req, res){
@@ -129,6 +129,7 @@ exports.cartOrder = function(req, res){
     res.redirect('/dang-nhap');
   };
 };
+
 // adding order to your cart
 exports.addToCart = function(req, res){
   if (req.session.userName) {
@@ -154,20 +155,7 @@ exports.addToCart = function(req, res){
     res.redirect('/dang-nhap');
   };
 };
-// delete order in your cart
-// exports.deleteOrder = function(req, res){
-//   if (req.session.userName) {
-//     console.log("user dang xoa order cart");
-//     Order
-//     .remove({_user_name:req.session.userName})
-//     .where('_products_id').equals(req.body.productId)
-//     .exec(function(err){
-//       console.log("delete done!");
-//     });
-//   } else{
-//     res.redirect('/dang-nhap')
-//   };
-// };
+
 exports.deleteOrder = function(req, res){
   if (req.session.userName) {
     console.log("user dang xoa order cart");
@@ -180,6 +168,7 @@ exports.deleteOrder = function(req, res){
     res.redirect('/dang-nhap')
   };
 };
+
 // buy one product now - create the order of product - change boolean - and payment
 exports.buyProductNow = function(req, res){
   if (req.session.userName) {
@@ -249,19 +238,28 @@ exports.paymentMethodAllOrder = function(req, res){
     res.redirect('/dang-nhap');
   };
 };
-
+// function in use for method payment now
 exports.submitForPaymentOrder = function(req, res){
   if (req.session.userName) {
     var userName = req.body.userName;
     var userPassword = req.body.userPassword;
+    var payment = req.body.paymentMethod;
+    var userAccountNumber = req.body.userAccountNumber;
+    console.log("payment " + payment + " account number " + userAccountNumber);
     console.log(">>>>>>>>>>>" + userName);
     User.find({$and:[{user_name:req.session.userName},{user_password:userPassword}]}, function(err, user){
       if (user != "") {
-        console.log(">>>>>>>>>>>>> user dung oi");
+        console.log(">>>>>>>>>>>>> user right!");
         Order.find({$and:[{_user_name:userName},{_submit_buy:true}]}, function(err, orders){
           if (orders.length > 0) {
             for (var i = 0; i < orders.length ; i++){
               orders[i]._user_confirm = true;
+              orders[i]._payment_method = payment;
+              if (payment == "1" || payment == "2") {
+                orders[i]._account_number = userAccountNumber;
+              } else {
+                orders[i]._account_number = "no set";
+              };
               orders[i].save();
             };
           };

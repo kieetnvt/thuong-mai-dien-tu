@@ -6,52 +6,126 @@
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap-responsive.css' />
     <link rel='stylesheet' href='/stylesheets/base.css' />
-		<title><?= title ?></title>
-	</head>
-  <body>
-	<div class="navbar navbar-inverse navbar-fixed-top" background="http://www.hotdeal.vn/skins/hotdealv2/customer/images/bg-header-bottom-noel.png">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title><?= title ?></title>
+  </head>
+  <body class="bg">
+  <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="navbar-inner">
-      <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <div class="nav-collapse collapse">
-        <ul class="nav">
-          <li><a class="brand" href="/"><span class="icon-cart"></span><span style="font-size:20px;">Nhóm Mua</span></a></li>
-          <li><a href="/category/cong-nghe-dien-tu"><span class="icon-tag"></span>Điện Tử</a></li>
-          <li><a href="/category/sach-truyen"><span class="icon-tag"></span>Sách - Truyện</a></li>
-          <li><a href="/category/du-lich"><span class="icon-tag"></span>Du Lịch</a></li>
-        </ul>
-        <form class="navbar-search pull-left" action="">
-          <input type="text" class="search-query span2" placeholder="Search" style="margin-top: 7%;;width:150%;">
-        </form>
-        <ul class="nav navbar-nav navbar-right" style="float:right;margin-right:3%;">
-          <? if(typeof(userName) != 'undefined') {?>
-                <li>
-                    <? if(typeof(orders) != 'undefined') {?>
-                    <a href="/dat-hang"><span class="icon-calculate"></span>
-                        <?= orders.length ?> Order
-                    </a>
-                    <? }  else { ?>
-                    <a href="/dat-hang"><span class="icon-calculate"></span>
-                        Giỏ Hàng
-                    </a>
-                    <? } ?>
-                </li>
-                <li><a href="/da-mua"><span class="icon-calculate"></span>Đã Mua</a></li>
-              <? if(typeof(adminAuth) != 'undefined' && adminAuth == true) { ?>
-                  <li><a href="/admin/quan-ly-san-pham"><span class="icon-accessibility"></span>Trang <?= userName ?></a></li>
-              <? } else { ?>
-                  <li><a href="/"><span class="icon-accessibility"></span><?= userName ?></a></li>
-              <? } ?>
-            <li><a href="/dang-xuat"><span class="icon-exit"></span>Đăng Xuất</a></li>
-		      <? } else { ?>
-		            <li><a href="/dang-ky"><span class="icon-smiley"></span>Đăng Ký</a></li>
-		            <li><a href="/dang-nhap"><span class="icon-facebook"></span>Đăng Nhập</a></li>
-		      <? } ?>
-        </ul>
-      </div><!--/.nav-collapse -->
+      <div class="container">
+        <button type="button" class="btn btn-navbar collapsed" data-toggle="collapse" data-target=".nav-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="nav-collapse collapse" style="height:auto;">
+          <ul class="nav" style="margin-left:5%;">
+            <li><a class="brand" href="/"><span style="font-size:20px;">Nhóm Mua</span></a></li>
+            <li><a href="/category/cong-nghe-dien-tu"><span class="icon-tag"></span>Điện Tử</a></li>
+            <li><a href="/category/sach-truyen"><span class="icon-tag"></span>Sách - Truyện</a></li>
+            <li><a href="/category/du-lich"><span class="icon-tag"></span>Du Lịch</a></li>
+          </ul>
+          <form class="navbar-form pull-left" action="">
+            <input type="text" class="search-query span2" placeholder="Search">
+          </form>
+          <ul class="nav navbar-nav navbar-right" style="float:right;margin-right:3%;">
+            <? if(typeof(userName) != 'undefined') {?>
+                <? if(typeof(adminAuth) == 'undefined' || adminAuth == false) {?>
+                  <li>
+                      <? if(typeof(orders) != 'undefined') {?>
+                          <a href="/dat-hang"></span>
+                              <?= orders.length ?> Order
+                          </a>
+                        <? }  else { ?>
+                          <a href="/dat-hang"></span>
+                              Giỏ Hàng
+                          </a>
+                      <? } ?>
+                  </li>
+                  <li><a href="/da-mua"><span class="icon-calculate"></span>Đã Mua</a></li>
+                <? } ?>
+                <? if(typeof(adminAuth) != 'undefined' && adminAuth == true) { ?>
+                    <li><a href="/admin/quan-ly-san-pham"></span>Trang <?= userName ?></a></li>
+                <? } else { ?>
+                    <li><a href="/"></span><?= userName ?></a></li>
+                <? } ?>
+              <li><a href="/dang-xuat"></span>Đăng Xuất</a></li>
+            <? } else { ?>
+                  <li><a href="/dang-ky"></span>Đăng Ký</a></li>
+                  <li><a href="/dang-nhap"></span>Đăng Nhập</a></li>
+            <? } ?>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div> <!--/.nav container  -->
     </div><!-- /.navbar-inner -->
   </div>
-  <p style="margin-bottom:10%;"></p>
+  <div class="row topInfo" style="margin-left:5%;margin-bottom:-5%;">
+      <!-- Slogan Area -->
+      <div class="span6 slogan">
+            <h1 style="font-weight:normal;font-size:medium;margin-bottom:0px;">Du Lịch - Sách - Sản Phẩm Công Nghệ giá rẻ cùng Nhóm Mua</h1>
+        <span style="color:red;font-size:14pt;">Chương trình khuyến mãi đặc biệt! Trong tháng 12, hoàn toàn miễn phí giao hàng !</span>
+      </div>
+      <!-- Navigation Area -->
+      <div class="span6 topNav02">
+        <ul>
+          <li>
+            <a href="/home/aboutus">Về chúng tôi</a>
+          </li>
+          <li>
+            <a href="/home/privacy">Quyền riêng tư và bảo mật</a>
+          </li>
+        </ul>
+        <br class="visible-phone">
+          <span style="line-height:35px;" class="topTel02 visible-phone">
+            Hotline:<a href="tel:0902-985-355">0902-985-355</a>
+          </span>
+          <span style="line-height:35px;" class="topTel02 hidden-phone">
+            Hotline:0902-985-355
+          </span>
+          <h1 style="font-size:small;opacity:0;">Du Lịch - Sách - Sản Phẩm Công Nghệ giá rẻ cùng Nhóm Mua </h1>
+      </div>
+    </div>
+  <p style="margin-bottom:5%;"></p>
+  <div id="myCarousel" class="carousel slide" style="margin-left:10%;margin-right:10%;opacity:0.91;">
+    <? if(typeof(allProducts)!= 'undefined') { ?>
+      <div class="carousel-inner">
+        <? for (var i = 0; i < allProducts.length; i++) { ?>
+            <? if(i == 0) {?>
+              <div class="item active">
+                <img src="<?=allProducts[i].img?>" alt="Hot New">
+                <div class="container">
+                  <div class="carousel-caption">
+                    <h2 class="alert alert-warning" style="color:black;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= allProducts[i].name?></h2>
+                    <a class="btn btn-large btn-success" style="margin-top:-10px;" href="/san-pham/<?= allProducts[i].id ?>">Chi Tiết</a>
+                  </div>
+                </div>
+              </div>
+            <? } ?>
+            <? if(i == allProducts.length - 2) {?>
+              <div class="item">
+                <img src="<?=allProducts[i].img?>" alt="Hot New">
+                <div class="container">
+                  <div class="carousel-caption">
+                    <h2 class="alert alert-warning" style="color:black;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= allProducts[i].name?></h2>
+                    <a class="btn btn-large btn-success" style="margin-top:-10px;" href="/san-pham/<?= allProducts[i].id ?>">Chi Tiết</a>
+                  </div>
+                </div>
+              </div>
+            <? } ?>
+            <? if(i == allProducts.length - 1) {?>
+              <div class="item">
+                <img src="<?=allProducts[i].img?>" alt="Hot New">
+                <div class="container">
+                  <div class="carousel-caption">
+                    <h2 class="alert alert-warning" style="color:black;text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= allProducts[i].name?></h2>
+                    <a class="btn btn-large btn-success" style="margin-top:-10px;" href="/san-pham/<?= allProducts[i].id ?>">Chi Tiết</a>
+                  </div>
+                </div>
+              </div>
+            <? } ?>
+        <? } ?>
+      </div>
+      <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="color:black;">‹</a>
+      <a class="right carousel-control" href="#myCarousel" data-slide="next" style="color:black;">›</a>
+    <? } ?>
+  </div>

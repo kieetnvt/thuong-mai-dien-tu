@@ -7,6 +7,9 @@ var dateNow2 = new Date();
 
 // The main Page Get All Products
 exports.getProducts = function(req, res){
+  var sor = req.query.sort;
+  console.log(sor);
+  if (sor == "price") {
     Product.find({}).sort({price:1}).exec(function(err, allProducts){
       if (req.session.userName) {
         Order.find({$and:[{_user_name:req.session.userName},{_submit_buy:false}]}, function(err, orders){
@@ -25,7 +28,72 @@ exports.getProducts = function(req, res){
           allProducts:allProducts
         });
       };
-  });
+    });
+  } else{
+    if (sor == "new") {
+    Product.find({}).sort({time_to_buy:1}).exec(function(err, allProducts){
+      if (req.session.userName) {
+        Order.find({$and:[{_user_name:req.session.userName},{_submit_buy:false}]}, function(err, orders){
+          console.log(req.session.userName)
+          res.render('index/index',{
+            title: 'Trang Chủ',
+            allProducts: allProducts,
+            userName: req.session.userName,
+            adminAuth: req.session.adminAuth,
+            orders:orders
+          });
+        });
+      } else {
+        res.render('index/index',{
+          title:'Trang Chủ',
+          allProducts:allProducts
+        });
+      };
+    });
+    } else{
+      if (sor == "hot") {
+        Product.find({}).sort({man_buy:1}).exec(function(err, allProducts){
+          if (req.session.userName) {
+            Order.find({$and:[{_user_name:req.session.userName},{_submit_buy:false}]}, function(err, orders){
+              console.log(req.session.userName)
+              res.render('index/index',{
+                title: 'Trang Chủ',
+                allProducts: allProducts,
+                userName: req.session.userName,
+                adminAuth: req.session.adminAuth,
+                orders:orders
+              });
+            });
+          } else {
+            res.render('index/index',{
+              title:'Trang Chủ',
+              allProducts:allProducts
+            });
+          };
+        });
+      } else{
+        Product.find({}).sort({price:1}).exec(function(err, allProducts){
+          if (req.session.userName) {
+            Order.find({$and:[{_user_name:req.session.userName},{_submit_buy:false}]}, function(err, orders){
+              console.log(req.session.userName)
+              res.render('index/index',{
+                title: 'Trang Chủ',
+                allProducts: allProducts,
+                userName: req.session.userName,
+                adminAuth: req.session.adminAuth,
+                orders:orders
+              });
+            });
+          } else {
+            res.render('index/index',{
+              title:'Trang Chủ',
+              allProducts:allProducts
+            });
+          };
+        });
+      };
+    };
+  };
 };
 
 exports.getProductDetail = function(req, res){
