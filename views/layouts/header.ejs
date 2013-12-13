@@ -25,8 +25,8 @@
             <li><a href="/category/sach-truyen"><span class="icon-tag"></span>Sách - Truyện</a></li>
             <li><a href="/category/du-lich"><span class="icon-tag"></span>Du Lịch</a></li>
           </ul>
-          <form class="navbar-form pull-left" action="">
-            <input type="text" class="search-query span2" placeholder="Search">
+          <form class="navbar-form pull-left" action="/tim-kiem" method="post">
+            <input type="text" class="search-query span2" placeholder="Search" name="q">
           </form>
           <ul class="nav navbar-nav navbar-right" style="float:right;margin-right:3%;">
             <? if(typeof(userName) != 'undefined') {?>
@@ -59,34 +59,35 @@
       </div> <!--/.nav container  -->
     </div><!-- /.navbar-inner -->
   </div>
-  <div class="row topInfo" style="margin-left:5%;margin-bottom:-5%;">
+  <div class="row topInfo" style="margin-left:5%;margin-bottom:-5%;margin-top:12%;color:white;">
       <!-- Slogan Area -->
       <div class="span6 slogan">
             <h1 style="font-weight:normal;font-size:medium;margin-bottom:0px;">Du Lịch - Sách - Sản Phẩm Công Nghệ giá rẻ cùng Nhóm Mua</h1>
-        <span style="color:red;font-size:14pt;">Chương trình khuyến mãi đặc biệt! Trong tháng 12, hoàn toàn miễn phí giao hàng !</span>
+<!--         <span style="color:red;font-size:14pt;">Chương trình khuyến mãi đặc biệt! Trong tháng 12, hoàn toàn miễn phí giao hàng !</span> -->
       </div>
       <!-- Navigation Area -->
       <div class="span6 topNav02">
         <ul>
           <li>
-            <a href="/home/aboutus">Về chúng tôi</a>
+            <a style="color:white;" href="/home/aboutus">Về chúng tôi</a>
           </li>
           <li>
-            <a href="/home/privacy">Quyền riêng tư và bảo mật</a>
+            <a style="color:white;" href="/home/privacy">Quyền riêng tư và bảo mật</a>
           </li>
         </ul>
-        <br class="visible-phone">
+<!--         <br class="visible-phone">
           <span style="line-height:35px;" class="topTel02 visible-phone">
             Hotline:<a href="tel:0902-985-355">0902-985-355</a>
           </span>
           <span style="line-height:35px;" class="topTel02 hidden-phone">
             Hotline:0902-985-355
-          </span>
+          </span> -->
           <h1 style="font-size:small;opacity:0;">Du Lịch - Sách - Sản Phẩm Công Nghệ giá rẻ cùng Nhóm Mua </h1>
       </div>
     </div>
   <p style="margin-bottom:5%;"></p>
-  <div id="myCarousel" class="carousel slide" style="margin-left:10%;margin-right:10%;opacity:0.91;">
+<? if(typeof(ref) == 'undefined') {?>
+<!--   <div id="myCarousel" class="carousel slide" style="margin-left:10%;margin-right:10%;opacity:0.91;">
     <? if(typeof(allProducts)!= 'undefined') { ?>
       <div class="carousel-inner">
         <? for (var i = 0; i < allProducts.length; i++) { ?>
@@ -128,4 +129,5 @@
       <a class="left carousel-control" href="#myCarousel" data-slide="prev" style="color:black;">‹</a>
       <a class="right carousel-control" href="#myCarousel" data-slide="next" style="color:black;">›</a>
     <? } ?>
-  </div>
+  </div> -->
+<? } ?>

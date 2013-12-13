@@ -17,6 +17,7 @@ with(Routes) {
   get('/dat-hang', 'user#cartOrder');
   get('/da-mua','user#showOrderConfirmed');
   get('/thanh-toan', 'user#paymentMethodAllOrder');
+  get('/show-thanh-toan','user#showThanhToan');
   post('/confirm-payment-order', 'user#submitForPaymentOrder');
 
   post('/mua-ngay', 'user#buyProductNow');

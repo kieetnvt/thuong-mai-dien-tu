@@ -1,17 +1,20 @@
 <?- include ../layouts/admin_header.ejs ?>
 <? if(userName  && adminAuth && allOrders.length > 0) { ?>
   <div id="total-money">
-    Total money :
-    <span>
-      <? var b = 0;
-      for(var i = 0; i < allOrders.length; i++){
-      b = b + allOrders[i]._number * arrProducts[i].price;
-       } ?>
-       <?= b?>
-    </span>
+    <em>Total money :
+      <span>
+        <? var b = 0;
+        for(var i = 0; i < allOrders.length; i++){
+        b = b + allOrders[i]._number * arrProducts[i].price;
+         } ?>
+         <?= b?>
+      </span>
+      VND
+    </em>
   </div>
 <? } ?>
 <div class="container">
+<canvas id="myChart" width="700px" height="400px" style="margin:5%;"></canvas>
   <? if(userName  && adminAuth) {?>
     <table  class="table"  width="100%">
       <thead>
@@ -23,6 +26,7 @@
           <th width="5%" align="center"><font size="2" color="#09c">Number Order</font></th>
           <th width="10%" align="center"><font size="2" color="#09c">Order Money</font></th>
           <th width="5%" align="center"><font size="2" color="#09c">User Has Confirmed</font></th>
+          <th width="5%" align="center"><font size="2" color="#09c">Payment Method</font></th>
           <th width="5%" align="center"><font size="2" color="#09c">Delete</font></th>
         </tr>
       </thead>
@@ -36,19 +40,26 @@
                 <span class="line-user"><?= allOrders[i]._user_name ?></span>
               </td>
               <td>
-                <span class="line-user"><?= arrProducts[i].name ?></span>
+                <span id="product_name_<?= i ?>" class="line-user"><?= arrProducts[i].name ?></span>
               </td>
       <!--         <td>
                 <span class="line-user"><img src="<?= arrProducts[i].img ?>"></span>
               </td> -->
               <td>
-                <span class="line-user"><?= allOrders[i]._number ?></span>
+                <span id="order_number_<?= i ?>" class="line-user"><?= allOrders[i]._number ?></span>
               </td>
               <td>
                 <span class="line-user"><?= allOrders[i]._number?> x <?= arrProducts[i].price ?> = <?= allOrders[i]._number * arrProducts[i].price ?></span>
               </td>
               <td>
                 <span class="line-user"><?= allOrders[i]._user_confirm ?></span>
+              </td>
+              <td>
+                <span class="line-user">
+                  <? if (allOrders[i]._payment_method == "1") { ?>
+                    Paypal
+                  <? } ?>
+                </span>
               </td>
               <td>
                 <span class="line-user"><button id="<?= allOrders[i].id ?>" class="btn btn-danger" onclick="deleteOrder(id)">Delete</button></span>
@@ -59,7 +70,34 @@
         <? } ?>
     </table>
   <? }  ?>
+
 </div>
+<script type="text/javascript">
+  var label_name = [];
+  var order_number = [];
+  allOrders = <?= allOrders.length ?>;
+  for(var i = 0; i < allOrders ; i++){
+    var name = document.getElementById("product_name_"+i.toString()).textContent.toString().substring(0,20);
+    var order = parseInt(document.getElementById("order_number_"+i.toString()).textContent.toString());
+    console.log(order);
+    label_name.push(name);
+    order_number.push(order);
+  };
+  var data = {
+  labels : label_name,
+  datasets : [
+    {
+      fillColor : "rgba(151,187,205,0.5)",
+      strokeColor : "rgba(151,187,205,1)",
+      pointColor : "rgba(151,187,205,1)",
+      pointStrokeColor : "#fff",
+      data : order_number
+    }
+  ]
+};
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myNewChart = new Chart(ctx).Line(data);
+</script>
 <script type="text/javascript">
   function deleteOrder(id){
     $.ajax({

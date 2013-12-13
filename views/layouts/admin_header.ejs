@@ -4,6 +4,7 @@
     <script src="/javascripts/jquery-1.7.1.min.js"></script>
     <script src="/javascripts/jquery-ui-1.10.3.custom.min.js"></script>
     <script src="/javascripts/bootstrap.min.js"></script>
+    <script src="/javascripts/Chart.js"></script>
     <link rel='stylesheet' href='/stylesheets/bootstrap.css' />
     <link rel='stylesheet' href='/stylesheets/bootstrap-responsive.css' />
     <link rel='stylesheet' href='/stylesheets/base.css' />
@@ -28,8 +29,8 @@
                 <li><a href="/admin/quan-ly-nguoi-dung"></span>Quản Lý User</a></li>
               <? } ?>
           </ul>
-          <form class="navbar-search pull-left" action="">
-            <input type="text" class="search-query span2" placeholder="Search">
+          <form class="navbar-search pull-left" action="/tim-kiem" method="post">
+            <input type="text" class="search-query span2" placeholder="Search" name="q">
           </form>
           <ul class="nav navbar-nav navbar-right" style="float:right;">
               <? if(typeof(userName) != 'undefined' && adminAuth == true) {?>

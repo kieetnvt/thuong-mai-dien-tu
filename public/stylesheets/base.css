@@ -3,7 +3,7 @@
     /* Padding below the footer and lighter body text */
 
     body {
-      padding-bottom: 40px;
+      /*padding-bottom: 40px;*/
       color: #5a5a5a;
     }
 
@@ -11,6 +11,7 @@
       background-image: url("/img/header_small.png");
       background-size: contain;
       background-repeat: no-repeat;
+      background-position: 0 50px;
     }
 
     /* CUSTOMIZE THE CAROUSEL

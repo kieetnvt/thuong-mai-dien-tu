@@ -3,6 +3,8 @@ var mongoose = require('mongoose'),
 
     modelName = 'Product';
 
+var textSearch  = require('mongoose-text-search');
+
 var schema = new Schema({
 
   name: {type: String, require: true},
@@ -17,5 +19,8 @@ var schema = new Schema({
   expire: {type: Boolean, require:true, default:false}
 
 });
+
+schema.plugin(textSearch);
+schema.index({ name: 'text'});
 
 exports = module.exports = mongoose.model(modelName, schema);

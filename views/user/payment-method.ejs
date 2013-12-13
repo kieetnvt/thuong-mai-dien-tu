@@ -11,18 +11,27 @@
       alert("delete done");
     });
   };
+  function submitfunc() {
+    $.ajax({
+      type:"post",
+      url:"/confirm-payment-order",
+      data:{
+        paymentMethod:1
+      }
+    });
+  };
 </script>
 <div class="container">
 <!--   <div class="jumbotron">
     <h2>Thanh toán đơn đặt hàng của bạn</h2>
     <p class="lead">Chúng tôi hỗ trợ thanh toán trực tuyến thông qua PayPal - Chuyển Khoản - Thanh toán trực tiếp.</p>
   </div> -->
-  <div style="margin:10%;">
+  <div style="margin:5%;">
     <div class="row-fluid">
       <? var sum_price = 0 ?>
         <? for (var i = 0; i < arrProducts.length; i++) { ?>
         <div class="span4">
-          <h2 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= arrProducts[i].name ?></h2>
+          <h2 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;color:white"><?= arrProducts[i].name ?></h2>
           <p><img style="width: 300px; height: 200px;" src="<?= arrProducts[i].img ?>"></p>
           <p>Thành Tiền : <?= arrProducts[i].price ?> x <?= arrNumber[i] ?> = <?= arrProducts[i].price*arrNumber[i] ?></p>
               <? sum_price = sum_price +  arrProducts[i].price*arrNumber[i] ?></p>
@@ -34,18 +43,27 @@
         <? } ?>
     </div>
   </div>
-  <form class="form-signin" action="/confirm-payment-order" method="post">
+<!--   <form class="form-signin" action="/confirm-payment-order" method="post">
     <h2 class="form-signin-heading">Xác Nhận Đơn Hàng Của Bạn</h2>
     <input type="text" class="input-block-level" placeholder="User Name" name="userName" required= "required">
     <input type="password" class="input-block-level" placeholder="Password" name="userPassword" required= "required">
     <em>Chọn Phương Thức</em>
     <select name="paymentMethod" id='paymentMethodID'>
       <option value="1" id="bank">Paypal</option>
-      <option value="2" id="bank">Ngân Hàng</option>
+      <option value="2" id="bank">Ngân Hàng</op
+      userNtion>
       <option value="3" id="direct">Trực Tiếp</option>
     </select>
     <input id="account_numer" type="text" class="input-block-level" placeholder="Account Number" name="userAccountNumber">
     <button class="btn btn-large btn-primary" type="submit" name="submit">Xác Nhận</button>
+  </form> -->
+  <form class="form-signin" action="https://www.paypal.com/cgi-bin/webscr" method="post">
+    <input type="hidden" class="input-block-level" name="cmd" value="_xclick">
+    <input type="hidden" class="input-block-level" name="business" value="prjnce2304@gmail.com">
+    <input type="hidden" class="input-block-level" name="item_name" value="<?=arrProducts[0].name?>">
+    <input type="hidden" class="input-block-level" name="currency_code" value="USD">
+    <input type="hidden" class="input-block-level" name="amount" value="<?=Math.floor(sum_price/21000)?>">
+    <input id="submit_paypal" onclick="submitfunc()" type="image" src="http://www.paypal.com/fr_XC/i/btn/x-click-but01.gif" name="submit" alt="Make payments with PayPal - it's fast, free and secure!">
   </form>
 </div>
 <?- include ../layouts/footer.ejs ?>

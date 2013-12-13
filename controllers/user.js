@@ -197,7 +197,46 @@ exports.buyProductNow = function(req, res){
     res.redirect('/dang-nhap');
   };
 };
-
+exports.showThanhToan = function(req, res){
+    if (req.session.userName) {
+    Order.find({$and:[{_user_name:req.session.userName},{_user_confirm:false}]}, function(err, orders){
+      var arrNumber = [];
+      var arrProducts = [];
+      if (orders.length > 0) {
+        for (var i = 0; i < orders.length ; i++) {
+          //update submit buy for order = true
+          if (orders[i]._submit_buy == false) {
+            orders[i]._submit_buy = true;
+            orders[i].save();
+          };
+          arrNumber.push(orders[i]._number);
+          Product.findById(orders[i]._products_id, function(err, result){
+            arrProducts.push(result);
+            if (arrProducts.length == orders.length) {
+              res.render('user/payment-method',{
+                title:'Trang Gio Hang',
+                orders:orders,
+                arrProducts:arrProducts,
+                arrNumber:arrNumber,
+                userName:req.session.userName
+              });
+            };
+          });
+        };
+      } else{
+        res.render('user/payment-method',{
+          title:'Trang Gio Hang',
+          arrProducts:[],
+          arrNumber:[],
+          orders:orders,
+          userName:req.session.userName
+        })
+      };
+    });
+  } else{
+    res.redirect('/dang-nhap');
+  };
+};
 exports.paymentMethodAllOrder = function(req, res){
   if (req.session.userName) {
     Order.find({$and:[{_user_name:req.session.userName},{_user_confirm:false}]}, function(err, orders){
@@ -241,29 +280,32 @@ exports.paymentMethodAllOrder = function(req, res){
 // function in use for method payment now
 exports.submitForPaymentOrder = function(req, res){
   if (req.session.userName) {
-    var userName = req.body.userName;
-    var userPassword = req.body.userPassword;
+    var userName = req.session.userName;
+    // var userPassword = req.body.userPassword;
     var payment = req.body.paymentMethod;
-    var userAccountNumber = req.body.userAccountNumber;
-    console.log("payment " + payment + " account number " + userAccountNumber);
-    console.log(">>>>>>>>>>>" + userName);
-    User.find({$and:[{user_name:req.session.userName},{user_password:userPassword}]}, function(err, user){
-      if (user != "") {
-        console.log(">>>>>>>>>>>>> user right!");
+    console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    console.log(userName);
+    console.log(payment);
+    // var userAccountNumber = req.body.userAccountNumber;
+    // console.log("payment " + payment + " account number " + userAccountNumber);
+    // console.log(">>>>>>>>>>>" + userName);
+    // User.find({$and:[{user_name:req.session.userName},{user_password:userPassword}]}, function(err, user){
+    //   if (user != "") {
+    //     console.log(">>>>>>>>>>>>> user right!");
         Order.find({$and:[{_user_name:userName},{_submit_buy:true}]}, function(err, orders){
           if (orders.length > 0) {
             for (var i = 0; i < orders.length ; i++){
               orders[i]._user_confirm = true;
               orders[i]._payment_method = payment;
               if (payment == "1" || payment == "2") {
-                orders[i]._account_number = userAccountNumber;
+                orders[i]._account_number = "comming soon";
               } else {
                 orders[i]._account_number = "no set";
               };
               orders[i].save();
             };
-          };
-        });
+        //   };
+        // });
         res.render('user/confirm-success', {
           title: "Confirm Successfully",
           userName: req.session.userName

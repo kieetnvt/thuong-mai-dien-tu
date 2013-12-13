@@ -112,46 +112,42 @@ function buyProductNow(id) {
     padding-left: 5px;
   }
 </style>
-<div class="container">
-  <div class="row-fluid">
+<div class="row-fluid">
+  <ul class="thumbnails" style="margin-left:10%;width:100%;">
     <span id="product_lenght" style="display:none;"><?= allProducts.length ?></span>
     <? for (var i = 0; i < allProducts.length; i++) { ?>
-      <div class="span4">
-        <h2><?= allProducts[i].name ?></h2>
-        <p>Giá Sản Phẩm : <?= allProducts[i].price ?></p>
-        <a href="/san-pham/<?= allProducts[i]._id ?>"><img src="<?= allProducts[i].img ?>"></a>
-        <? if(typeof(userName)!= 'undefined') { ?>
-        <p>
-          <span><a class="btn" href="/san-pham/<?= allProducts[i]._id ?>"><button class="btn btn-warning">Xem Chi Tiết »</button></a></span>
-          <span>
-            Số Lượng:
-            <select class="btn btn-info" id='number-<?= allProducts[i]._id ?>'>
-              <? for(var j = 1; j <= 10 ; j++) {?>
-                <option value="<?=j?>"><?=j?></option>
-              <? } ?>
-            </select>
-          </span>
-          <span><a id="<?= allProducts[i]._id ?>" class="btn" onclick="addToCart(id)"><button class="btn btn-info">Thêm vào Giỏ Hàng »</button></a></span> hoặc
-          <span><a id="<?= allProducts[i]._id ?>" class="btn" onclick="buyProductNow(id)"><button class="btn btn-danger">Mua Ngay »</button></a></span>
-        </p>
-        <? } ?>
-        <div class="meta">
-          <div id="buy-number" style="margin-right:5%;">
-            <em>Số Người Đã Mua : </em><span><?= allProducts[i].man_buy ?></span>
-          </div>
-          <div id="product-time" style="display:none;">
-            <em>Created At : </em><span id="time-create-<?= i ?>" class="time-countdown"><?= allProducts[i].time_to_buy ?></span>
-          </div>
-          <div id="time-to-buy">
-            <em>Thời Gian Còn Lại : </em><span id="time-buy-<?= i ?>"></span>
-          </div>
-          <div id="product-id-<?= i ?>" style="display:none;"><?= allProducts[i]._id ?></div>
+    <li class="span3" style="max-width:100%;height:30%;">
+      <div class="thumbnail">
+        <a href="/san-pham/<?= allProducts[i].obj.id ?>"><img data-src="holder.js/300x200" alt="<?= allProducts[i].obj.name ?>" style="width: 100%; height: 300px;" src="<?= allProducts[i].obj.img ?>"></a>
+        <div class="caption">
+          <h3 style="text-overflow: ellipsis;white-space: nowrap;overflow: hidden;"><?= allProducts[i].obj.name ?></h3>
+          <p>Giá Sản Phẩm : <?= allProducts[i].obj.price ?> VND</p>
+          <? if(typeof(userName)!= 'undefined') { ?>
+            <span>
+              Số Lượng:
+              <select class="" id='number-<?= allProducts[i].obj.id ?>'>
+                <? for(var j = 1; j <= 10 ; j++) {?>
+                  <option value="<?=j?>"><?=j?></option>
+                <? } ?>
+              </select>
+            </span>
+            <p>
+              <a  id="<?= allProducts[i].obj.id ?>" style="width:40%;" class="btn btn-success" onclick="addToCart(id)">Thêm Giỏ Hàng</a>
+              <a id="<?= allProducts[i].obj.id ?>" style="width:40%;" class="btn btn-danger" onclick="buyProductNow(id)">Mua Ngay</a>
+            </p>
+          <? } ?>
+          <p>
+            <div id="product-time" style="display:none;">
+              <em>Created At : </em><span id="time-create-<?= i ?>" class="time-countdown"><?= allProducts[i].obj.time_to_buy ?></span>
+            </div>
+            <div id="product-id-<?= i ?>" style="display:none;"><?= allProducts[i].obj.id ?></div>
+            <em>Người Đã Mua : </em><span><?= allProducts[i].obj.man_buy ?></span>
+            <em>Thời Gian : </em><span id="time-buy-<?= i ?>"></span>
+          </p>
         </div>
-      </div><!--/span-->
+      </div>
+    </li>
     <? } ?>
-    <div id="ex1" style="display:none;width:50%;height:100%;background-color:white;">
-      <p>Thanks for clicking.  That felt good.  <a href="#" rel="modal:close">Close</a> or press ESC</p>
-    </div>
-  </div>
+  </ul>
 </div>
 <?- include ../layouts/footer.ejs ?>
